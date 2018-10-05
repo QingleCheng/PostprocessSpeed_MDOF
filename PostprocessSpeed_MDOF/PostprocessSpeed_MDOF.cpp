@@ -13,6 +13,7 @@
 #include<vector>  
 #include <numeric>
 #include "building.h"
+
 #define PI 3.1415927
 using namespace std;
 int countline(string filename)
@@ -183,6 +184,7 @@ int main()
 		for (int i=0;i<numB;i++)
 		{
 			build[i].getDrift();
+			build[i].getResidual();
 		}
 
 	}else
@@ -269,6 +271,12 @@ int main()
 		opt <<  "\n";
 		
 	}
+	for (int i = 0; i < numB; i++)
+	{
+		string fileEDP = to_string(i+1)+"-EDP.json";
+		build[i].CreateEDP(fileEDP.c_str());
+	}
+
 	
 	return 0;
 

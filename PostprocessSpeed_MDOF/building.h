@@ -56,7 +56,8 @@ public:
     Building();
 	void getDrift();
 	void getPFA();
-
+	void getResidual();
+	void CreateEDP(const char *filenameEDP);
 
 
 };

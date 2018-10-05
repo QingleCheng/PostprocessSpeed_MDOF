@@ -1,0 +1,60 @@
+{
+  "EngineeringDemandParameters": [
+    {
+      "name": "name",
+      "responses": [
+        {
+          "type": "max_drift",
+          "cline": 1,
+          "floor1": 1,
+          "floor2": 2,
+          "scalar_data": 0.00095716200000000001
+        },
+        {
+          "type": "max_drift",
+          "cline": 1,
+          "floor1": 2,
+          "floor2": 3,
+          "scalar_data": 0.00095919899999999999
+        },
+        {
+          "type": "max_drift",
+          "cline": 1,
+          "floor1": 3,
+          "floor2": 4,
+          "scalar_data": 0.00085921879999999997
+        },
+        {
+          "type": "max_abs_acceleration",
+          "cline": 1,
+          "floor": 1,
+          "scalar_data": 1.4500580000000001
+        },
+        {
+          "type": "max_abs_acceleration",
+          "cline": 1,
+          "floor": 2,
+          "scalar_data": 0.44123099999999998
+        },
+        {
+          "type": "max_abs_acceleration",
+          "cline": 1,
+          "floor": 3,
+          "scalar_data": 0.20948130000000001
+        },
+        {
+          "type": "max_abs_acceleration",
+          "cline": 1,
+          "floor": 4,
+          "scalar_data": 0.23587430000000001
+        },
+        {
+          "type": "residual_disp",
+          "cline": 1,
+          "floor": 4,
+          "scalar_data": 0.00036680700000000003
+        }
+      ]
+    }
+  ]
+}
