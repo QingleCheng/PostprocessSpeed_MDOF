@@ -29,7 +29,17 @@ int countline(string filename)
 	return line + 1;
 
 }
-
+string getOutputName();
+string& trim(string &s)
+{
+	if (s.empty())
+	{
+		return s;
+	}
+	s.erase(0, s.find_first_not_of(" "));
+	s.erase(s.find_last_not_of(" ") + 1);
+	return s;
+}
 int main()
 {
 	string fileMPI = ".//FILES_MPI//mpitest0.txt";
@@ -37,7 +47,7 @@ int main()
 	vector <int> ID; 
 	vector <int> numBuilding; //每个并行文件中建筑数量
 	int BRoutput[6] = { 1,1,1,1,1,1 };
-	int line=countline(fileMPI); //并行数量
+	int line=countline(fileMPI)-1; //并行数量
 	ifstream inMPI(fileMPI.c_str());
 	int tempID, tempNum;
 	double totalTime, step;
@@ -74,14 +84,23 @@ int main()
 		}		
 	} 	
 	/* -------read config.txt--------- */
-	ifstream inConfig("Config.txt");
-	for (int i=0;i<7;i++)
+	string outputFileName=getOutputName();
+	string monitorFilename = ".//" + outputFileName + "//MONITOR.INFO";
+	ifstream inMonitor(monitorFilename.c_str());
+	int stepGap = 0;
+	inMonitor >> totalTime >> step >> stepGap;
+	//ifstream inConfig("Config.txt");
+	//for (int i=0;i<7;i++)
+	//{
+	//	getline(inConfig, tempString);
+	//}
+	//inConfig>> totalTime>> step;
+	for (int i = 0; i < numB; i++)
 	{
-		getline(inConfig, tempString);
+		build[i].Ntime = int(totalTime / step/ stepGap) +1;
+		build[i].dt = step*stepGap;
 	}
-	inConfig>> totalTime>> step;
-	for (int i=0;i<numB;i++)
-		build[i].Ntime = int(totalTime / step) - 1;
+		
 	int TimeN= int(totalTime / step) - 1;
 	
 
@@ -275,10 +294,35 @@ int main()
 	{
 		string fileEDP = to_string(i+1)+"-EDP.json";
 		build[i].CreateEDP(fileEDP.c_str());
+		build[i].WriteDisp(i + 1);
+		build[i].WriteAcc(i + 1);
 	}
 
 	
 	return 0;
 
+}
+string getOutputName()
+{
+	string outputName,tempString;
+	ifstream fin("speed.input");
+	int line = countline("speed.input");
+	
+	int index = 0;
+	for (int i=0;i<line;i++)
+	{
+		char filename[8]="";
+		fin.get(filename,8);
+		if (strcmp(filename, "MONFILE")==0)
+		{
+			index = i;
+			getline(fin, tempString);
+			break;
+		}
+		getline(fin, tempString);
+	}
+
+	outputName = trim(tempString);
+	return outputName;
 }
 

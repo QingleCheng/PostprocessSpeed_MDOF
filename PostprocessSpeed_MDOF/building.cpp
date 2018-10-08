@@ -1,4 +1,5 @@
 #include "building.h"
+#include <fstream>
 #include <jansson.h> // for Json
 Building::Building()
 {
@@ -143,4 +144,55 @@ void Building::CreateEDP(const char *filenameEDP)
 	json_dump_file(rootEDP, filenameEDP, 0);
 }
 
+
+
+void Building::WriteDisp(int BuildingID)
+{
+	string filenameDispX = to_string(BuildingID) + "-DispX.txt";
+	string filenameDispY = to_string(BuildingID) + "-DispY.txt";
+	ofstream foutDispX(filenameDispX);
+	ofstream foutDispY(filenameDispY);
+	double dtX = -dt;
+	double dtY = -dt;
+	for (int i=0;i<Ntime;i++)
+	{
+		dtX = dtX + dt;
+		dtY = dtY + dt;
+		foutDispX << dtX  << "\t";
+		foutDispY << dtY  << "\t";
+		for (int j = 0; j < nStory; j++)
+		{
+			foutDispX << dispX[j][i] << "\t";
+			foutDispY << dispY[j][i] << "\t";
+		}
+		foutDispX << "\n";
+		foutDispY << "\n";
+	}
+
+}
+
+void Building::WriteAcc(int BuildingID)
+{
+	string filenameAccX = to_string(BuildingID) + "-AccX.txt";
+	string filenameAccY = to_string(BuildingID) + "-AccY.txt";
+	ofstream foutAccX(filenameAccX);
+	ofstream foutAccY(filenameAccY);
+	double dtX = -dt;
+	double dtY = -dt;
+	for (int i = 0; i < Ntime; i++)
+	{
+		dtX = dtX + dt;
+		dtY = dtY + dt;
+		foutAccX << dtX << "\t";
+		foutAccY << dtY << "\t";
+		for (int j = 0; j < nStory; j++)
+		{
+			foutAccX << accX[j][i] << "\t";
+			foutAccY << accY[j][i] << "\t";
+		}
+		foutAccX << "\n";
+		foutAccY << "\n";
+	}
+
+}
 

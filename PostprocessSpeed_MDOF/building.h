@@ -48,6 +48,7 @@ public:
     int maxDamage;  // max damage of this building
     EDP edps;
 	int Ntime;
+	double dt;
 	double PGAX;
 	double PGAY;
 	vector <double> GMX;
@@ -58,6 +59,8 @@ public:
 	void getPFA();
 	void getResidual();
 	void CreateEDP(const char *filenameEDP);
+	void WriteDisp(int BuildingID);
+	void WriteAcc(int BuildingID);
 
 
 };
